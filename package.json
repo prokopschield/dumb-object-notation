@@ -1,0 +1,26 @@
+{
+	"name": "@prokopschield/don",
+	"description": "dumb object notation",
+	"version": "0.1.0-1",
+	"main": "lib/index.js",
+	"bin": {
+		"don": "lib/cli.js"
+	},
+	"scripts": {
+		"start": "node lib/cli",
+		"test": "npx nslibmgr test"
+	},
+	"author": "Prokop Schield",
+	"keywords": [],
+	"license": "GPL-3.0-or-later",
+	"dependencies": {
+		"doge-json": "^1.2.11"
+	},
+	"devDependencies": {
+		"@types/node": "^14.18.51"
+	},
+	"types": "./lib/index.d.ts",
+	"directories": {
+		"lib": "lib"
+	}
+}
