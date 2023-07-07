@@ -1,7 +1,7 @@
 {
 	"name": "@prokopschield/don",
 	"description": "dumb object notation",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"main": "lib/index.js",
 	"bin": {
 		"don": "lib/cli.js"

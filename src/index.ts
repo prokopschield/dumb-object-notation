@@ -31,7 +31,7 @@ function trimTape(tape: string[]): void {
 }
 
 function encodeString(str: string): string {
-	if (/^[a-z0-9-._~]+$/.test(str)) {
+	if (/^[a-z0-9-._~]+$/gi.test(str)) {
 		return str;
 	} else {
 		return Json.encode(str);
