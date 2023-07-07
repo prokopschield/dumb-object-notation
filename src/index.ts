@@ -186,6 +186,15 @@ export class DonNode extends Map<string, DonNode | string> {
 				}
 
 				key = '';
+
+				trimTape(tape);
+
+				if (tape[0] === ',' || tape[0] === ';') {
+					tape.shift();
+				}
+
+				trimTape(tape);
+
 				continue;
 			}
 
@@ -280,7 +289,7 @@ export function encode<T>(item: T, stack = new Array<any>()): string {
 
 		node.set(
 			key,
-			typeof value === 'object'
+			value && typeof value === 'object'
 				? DonNode.decode(encode(value, [...stack, value]))
 				: String(value)
 		);
