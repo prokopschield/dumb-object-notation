@@ -101,6 +101,63 @@ export class DonNode extends Map<string, DonNode | string> {
 		);
 	}
 
+	fmt(indentation: number | string = 4, depth = 0): string {
+		if (!this.size) {
+			return '[]';
+		}
+
+		indentation =
+			typeof indentation === 'number'
+				? ' '.repeat(indentation)
+				: String(indentation);
+
+		const indentation_string = indentation.repeat(depth + 1);
+
+		let counter = 0;
+
+		const rows_unformatted: Array<[string, string]> = [...this].map(
+			([key, value]): [string, string] => {
+				const encoded_key =
+					key === String(counter) ? '' : encodeString(key);
+
+				if (!encoded_key) {
+					++counter;
+				}
+
+				return [
+					encoded_key,
+					value instanceof DonNode
+						? value.fmt(indentation, depth + 1)
+						: encodeValue(value),
+				];
+			}
+		);
+
+		const longest_key_length = rows_unformatted.reduce(
+			(previous, [{ length }]) => Math.max(previous, length),
+			0
+		);
+
+		const array_indent =
+			longest_key_length + (counter === rows_unformatted.length ? 0 : 4);
+
+		const rows_formatted = rows_unformatted.map(([key, value]) => {
+			return key.length
+				? indentation_string +
+						key +
+						' '.repeat(longest_key_length - key.length) +
+						' => ' +
+						value +
+						','
+				: indentation_string + ' '.repeat(array_indent) + value + ',';
+		});
+
+		rows_formatted.unshift('[');
+		rows_formatted.push(indentation.repeat(depth) + ']');
+
+		return rows_formatted.join('\n');
+	}
+
 	static decode(encoded: string): DonNode {
 		return this.read(encoded.trim().split(''));
 	}
